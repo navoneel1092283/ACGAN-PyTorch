@@ -232,8 +232,8 @@ for epoch in range(opt.niter):
         all_loss_G = avg_loss_G * curr_iter
         all_loss_D = avg_loss_D * curr_iter
         all_loss_A = avg_loss_A * curr_iter
-        all_loss_G += errG.data[0]
-        all_loss_D += errD.data[0]
+        all_loss_G += errG.item()
+        all_loss_D += errD.item()
         all_loss_A += accuracy
         avg_loss_G = all_loss_G / (curr_iter + 1)
         avg_loss_D = all_loss_D / (curr_iter + 1)
@@ -241,7 +241,7 @@ for epoch in range(opt.niter):
 
         print('[%d/%d][%d/%d] Loss_D: %.4f (%.4f) Loss_G: %.4f (%.4f) D(x): %.4f D(G(z)): %.4f / %.4f Acc: %.4f (%.4f)'
               % (epoch, opt.niter, i, len(dataloader),
-                 errD.data[0], avg_loss_D, errG.data[0], avg_loss_G, D_x, D_G_z1, D_G_z2, accuracy, avg_loss_A))
+                 errD.item(), avg_loss_D, errG.item(), avg_loss_G, D_x, D_G_z1, D_G_z2, accuracy, avg_loss_A))
         if i % 100 == 0:
             vutils.save_image(
                 real_cpu, '%s/real_samples.png' % opt.outf)
